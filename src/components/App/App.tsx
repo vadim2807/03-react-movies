@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 import { fetchMovies } from '../../services/movieService';
 import type{ Movie } from '../../types/movie';
 import SearchBar from '../SearchBar/SearchBar';
@@ -70,6 +70,7 @@ export default function App() {
       {selectedMovie && (
         <MovieModal movie={selectedMovie} onClose={handleModalClose} />
       )}
+      <Toaster />
     </div>
   );
 }

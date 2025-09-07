@@ -17,27 +17,30 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
         onClose();
       }
     }
-    
-    // обработка клика по фону модального окна
-    function handleOverlay(e: MouseEvent) {
-      if (e.target === e.currentTarget) {
-        onClose();
-      }
-    }
 
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleEsc);
-    document.addEventListener('click', handleOverlay);
 
     return () => {
       document.body.style.overflow = 'auto';
       document.removeEventListener('keydown', handleEsc);
-      document.removeEventListener('click', handleOverlay);
     };
   }, [onClose]);
 
+  // обработка клика по фону модального окна
+  function handleBackdropClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+
   return createPortal(
-    <div className={css.backdrop} role="dialog" aria-modal="true">
+    <div 
+      className={css.backdrop} 
+      role="dialog" 
+      aria-modal="true"
+      onClick={handleBackdropClick}
+    >
       <div className={css.modal}>
         <button className={css.closeButton} aria-label="Close modal" onClick={onClose}>
           &times;
